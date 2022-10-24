@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  .banner{
+    position: relative;
+    width: 1226px;
+    height: 460px;
+    background-color: red;
+    margin: 50px auto;
+  }
+  .banner img{
+    width: 100%;
+    height: 100%;
+  }
+  .prev,.next{
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    width: 41px;
+    height: 69px;
+    background-color: pink;
+    cursor: pointer;
+  }
+  .next{
+    right: 0;
+  }
+  ul{
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+  }
+  li{
+    list-style: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    float: left;
+    margin: 0 4px;
+    cursor: pointer;
+  }
+  .active{
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(0, 0, 0, 0.4);
+  }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <a href="javascript:;">
+      <img src="./images/1.jpg" alt="">
+    </a>
+    <div class="prev"></div>
+    <div class="next"></div>
+    <ul>
+      <li class="active"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
+  <script>
+    let prev = document.querySelector('.prev');
+    let next = document.querySelector('.next');
+    let img = document.querySelector('img');
+    let lis = document.querySelectorAll('li');
+
+    let arr = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'];
+    let count = 0;
+
+    function fun(a){
+      img.src = './images/' + arr[a];
+      for(let j = 0; j < lis.length; j++){
+        lis[j].className = '';
+      }
+      lis[a].className = 'active';
+    };
+
+    prev.onclick = function(){
+      count--;
+      if(count < 0){
+        count = arr.length - 1;
+      }
+
+      fun(count);
+
+    };
+
+    next.onclick = () => {
+      count++;
+      if (count > arr.length - 1) {
+        count = 0;
+      }
+      
+      fun(count);
+      
+    };
+
+    function updateSrc(){
+      count++;
+      if (count > arr.length - 1) {
+        count = 0;
+      }
+      
+      fun(count);
+      
+    }
+    let timer = setInterval(updateSrc, 2000);
+
+    let banner = document.querySelector('.banner');
+    banner.onmouseover = function (){
+      clearInterval(timer);
+    };
+    banner.onmouseout = function(){
+      timer = setInterval(updateSrc, 2000);
+    };
+
+
+    for(let i = 0; i < lis.length; i++){
+      lis[i].onclick = function(){
+        fun(i);
+        count = i; 
+      };
+    }
+    console.log(count);
+
+  </script>
+</body>
+</html>
