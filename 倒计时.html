@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  .box{
+    position: relative;
+    width: 190px;
+    height: 66px;
+    margin: 50px auto;
+    background-color: #e83632;
+  }
+  .time{
+    position: absolute;
+    width: 130px;
+    height: 30px;
+    display: block;
+    /* background-color: blue; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .hour,.minute,.second{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-color: #2f3430;
+    float: left;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 700;
+  }
+  .minute{
+    margin: 0 20px;
+  }
+  .hour::after,.minute::after{
+    position: absolute;
+    content: ':';
+    color: #fff;
+    font-weight: 700;
+    width: 20px;
+    height: 100%;
+    right: -20px;
+    font-size: 18px;
+    /* background-color: aqua; */
+  }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <span class="time">
+      <span class="hour"></span>
+      <span class="minute"></span>
+      <span class="second"></span>
+    </span>
+
+    <script>
+      let fun = (endTime) => {
+        let now = new Date();
+
+        let time = endTime - now;
+
+        let hour = ~~(time / 1000 / 60 / 60);
+        document.querySelector('.hour').innerHTML = hour < 10 ? '0'+hour : hour;
+
+        let minute = ~~(time / 1000 / 60 % 60);
+        document.querySelector('.minute').innerHTML = minute < 10 ? '0'+minute : minute;
+
+        let second = ~~(time / 1000 % 60);
+        document.querySelector('.second').innerHTML = second < 10 ? '0'+second : second;
+
+      };
+      fun(new Date(2022,9,24,19,0,0));
+      let timer = setInterval(fun, 1000, new Date(2022,9,24,19,0,0));
+    </script>
+  </div>
+</body>
+</html>
