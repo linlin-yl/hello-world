@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+        width: 240px;
+        height: 350px;
+        border: 1px solid #ff6700;
+        margin: 50px auto;
+        text-align: center;
+    }
+    .box input {
+        width: 180px;
+        height: 30px;
+        margin: 20px 0;
+        border: 1px solid #ff6700;
+        outline: none;
+        padding: 0 5px;
+    }
+    button {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: orange;
+        border: none;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+  <div class="box">
+      <input type="text">
+      <br>
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>+</button>
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>-</button>
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button>*</button>
+      <button>C</button>
+      <button>0</button>
+      <button>=</button>
+      <button>/</button>
+  </div>
+
+  <script>
+    let btns = document.querySelectorAll('button');
+    for(let i = 0; i < btns.length; i++){
+    // 颜色效果
+      btns[i].onmouseover = function(){
+        this.style.backgroundColor = 'red';
+      }
+      btns[i].onmouseout = function(){
+        this.style.backgroundColor = 'orange';
+      }
+
+
+    // 运算效果
+      let input = document.querySelector('input');
+      btns[i].onclick = function(){
+        if(this.innerHTML == 'c'){
+          console.log('123')
+          input.value = '';
+        }else if(this.innerHTML == '='){
+          input.value = eval(input.value);
+        }else{
+        input.value = input.value + this.innerHTML;
+        }
+          
+      }
+    }
+      
+    
+
+
+    
+    
+  </script>
+</body>
+</html>
