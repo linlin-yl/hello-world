@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  table{
+    margin: 50px auto;
+    border-collapse: collapse;
+    width: 800px;
+    height: 400px;
+    text-align: center;
+  }
+  tr,td{
+    border: 1px solid red;
+  }
+  tr:first-child{
+    font-weight: 900;
+  }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td>产品名称</td>
+      <td>产品单价</td>
+      <td>产品数量</td>
+      <td>总价</td>
+      <td>操作</td>
+    </tr>
+    <tr>
+      <td>Apple iphone 12 Pro Max</td>
+      <td class="price">9998</td>
+      <td>
+        <button class="minus">-</button>
+        <span class="count"></span>
+        <button class="add">+</button>
+      </td>
+      <td class="t1"></td>
+      <td>
+        <button class="del">删除</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Apple iphone 12</td>
+      <td class="price">6708</td>
+      <td>
+        <button class="minus">-</button>
+        <span class="count"></span>
+        <button class="add">+</button>
+      </td>
+      <td class="t1"></td>
+      <td>
+        <button class="del">删除</button>
+      </td>
+    </tr>
+    <tr>
+      <td>AirPods Pro</td>
+      <td class="price">1559</td>
+      <td>
+        <button class="minus">-</button>
+        <span class="count"></span>
+        <button class="add">+</button>
+      </td>
+      <td class="t1"></td>
+      <td>
+        <button class="del">删除</button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">总计</td>
+      <td class="total">123</td>
+      <td>
+        <button class="clear">清空购物车</button>
+      </td>
+    </tr>
+  </table>
+
+  <script>
+    let addBtns = document.querySelectorAll('.add');
+    let minusBtns = document.querySelectorAll('.minus');
+    let price = document.querySelectorAll('.price');
+    let t1 = document.querySelectorAll('.t1');
+    let count = document.querySelectorAll('.count');
+    let total = document.querySelector('.total');
+    let del = document.querySelectorAll('.del');
+
+    for(let i = 0; i < addBtns.length; i++){
+      addBtns[i].onclick = () =>{
+        count[i].innerHTML++;
+
+        t1[i].innerHTML = price[i].innerHTML * count[i].innerHTML;
+
+        total.innerHTML = Number(t1[0].innerHTML) + Number(t1[1].innerHTML) + Number(t1[2].innerHTML);
+
+
+      }
+    }
+
+    for(let i = 0; i < minusBtns.length; i++){
+      minusBtns[i].onclick = () =>{
+        if(count[i].innerHTML <= 0){
+          count[i].innerHTML = 0;
+        }else{
+        count[i].innerHTML--;
+        }
+
+        t1[i].innerHTML = price[i].innerHTML * count[i].innerHTML;
+        console.log(t1[i].parentElement)
+
+
+        total.innerHTML = Number(t1[0].innerHTML) + Number(t1[1].innerHTML) + Number(t1[2].innerHTML);
+
+      }
+    }
+
+    for(let i = 0; i < del.length; i++){
+      del[i].onclick = function(){
+        this.parentElement.parentElement.remove();
+
+        let tds = document.querySelectorAll('.t1');
+        let sum = 0;
+        for(let j= 0; j < tds.length; j++){
+          sum += Number(tds[j].innerHTML);
+        }
+
+        document.querySelector('.total').innerHTML = sum;
+      };
+    }
+
+    let clear = document.querySelector('.clear');
+    clear.onclick = () => {
+      let table = document.querySelector('table');
+      table.remove();
+
+      let div = document.createElement('div');
+      document.body.appendChild(div);
+
+      div.style = 'width:75%;height:400px;margin:50px auto;border:1px solid red;text-align:center;'
+      div.innerText = '购物车空空如也，快去购买东西！'
+    };
+  </script>
+</body>
+</html>
