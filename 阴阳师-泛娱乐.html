@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+  .box{
+    width: 1180px;
+    height: 516px;
+    background-color: aqua;
+    margin: 50px auto;
+  }
+  .fun_box{
+    position: relative;
+    width: 1060px;
+    height: 516px;
+    /* background-color: red; */
+    float: right;
+  }
+  .fun_con{
+    position: relative;
+    width: 1060px;
+    height: 536px;
+    /* background-color: orange; */
+    overflow: hidden;
+  }
+  .fun_con>ul{
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 2300px;
+    height: 516px;
+    /* background-color: antiquewhite; */
+    transition: all 0.6s;
+  }
+  .fun_con>ul>li{
+    width: 220px;
+    height: 516px;
+    float: left;
+    margin-right: 10px;
+    transition: all 0.4s ease;
+  }
+  .fun_con>ul>li:hover{
+    transform: translateY(-20px);
+  }
+  .left,.right{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 70px;
+    height: 70px;
+    border: 1px solid #c2a060;
+    display: block;
+    line-height: 70px;
+    background-color: #fff;
+  }
+  .left{
+    left: -36px;
+    display: none;
+  }
+  .right{
+    right: -36px;
+  }
+  .left>i,.right>i{
+    width: 47px;
+    height: 9px;
+    display: block;
+    margin: 32px auto 0;
+    transition: all .3s ease
+  }
+  .right>i{
+    background: url('./images2/arrow4_bdb96a0.png') no-repeat;
+  }
+  .right:hover>i{
+    animation: ani 0.5s ;
+  }
+  @keyframes ani {
+  0%{
+    transform: translateX(-15px);
+  }  
+  20%{
+    transform: translateX(0px);
+  }
+  40%{
+    transform: translateX(-10px);
+  }
+  60%{
+    transform: translateX(0px);
+  }
+  80%{
+    transform: translateX(-5px);
+  }
+  100%{
+    transform: translateX(0px);
+  }
+  }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="fun_box">
+      <div class="fun_con">
+        <ul>
+          <li><a href="#"><img src="./images2/1.gif" alt=""></a></li>
+          <li><a href="#"><img src="./images2/2.jpg" alt=""></a></li>
+          <li><a href="#"><img src="./images2/3.jpg" alt=""></a></li>
+          <li><a href="#"><img src="./images2/4.jpg" alt=""></a></li>
+          <li><a href="#"><img src="./images2/5.gif" alt=""></a></li>
+          <li><a href="#"><img src="./images2/6.png" alt=""></a></li>
+          <li><a href="#"><img src="./images2/7.png" alt=""></a></li>
+          <li><a href="#"><img src="./images2/8.png" alt=""></a></li>
+          <li><a href="#"><img src="./images2/9.png" alt=""></a></li>
+          <li><a href="#"><img src="./images2/10.png" alt=""></a></li>
+        </ul>
+      </div>
+      <a href="#" class="left"><i></i></a>
+            <a href="#" class="right"><i></i></a>
+    </div>
+  </div>
+
+  <script>
+    let rightBtn = document.querySelector('.right');
+    let leftBtn = document.querySelector('.left');
+
+    let ul = document.querySelector('ul');
+    let left = getComputedStyle(ul).left;
+    left = parseInt(left);
+
+    rightBtn.onclick = function(){
+      
+      left -= 230;
+      if(left <= -1380){
+        left = -1380;
+        rightBtn.style.display = 'none';
+      }
+      if(left <= -230){
+        leftBtn.style.display = 'block';
+      }
+      ul.style.left = left + 'px';
+    }
+
+    leftBtn.onclick = function(){
+      left += 230;
+      ul.style.left = left + 'px';
+      if(left == 0){
+        leftBtn.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
