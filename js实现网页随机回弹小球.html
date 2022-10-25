@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      background-color: #000;
+    }
+    div{
+      position: fixed;
+      border-radius:50%;
+    }
+  </style>
+</head>
+<body>
+  
+  <script>
+    // 生成随机数
+    let fun1 = (min,max) => {
+      return ~~(Math.random()*(max-min+1)+min);
+    };
+
+
+    // 生成随机颜色
+    let fun2 = () => {
+      let red = fun1(0,255);
+      let green = fun1(0,255);
+      let blue = fun1(0,255);
+
+      return `rgb(${red}, ${green}, ${blue})`;
+    };
+
+
+    // 生成一个大小随机、颜色随机、位置随机、速度随机的球
+    let fun = () => {
+      let div = document.createElement('div');
+      document.body.appendChild(div);
+
+      // 随机大小
+      let num = fun1(20,80);
+      div.style.width = num + 'px';
+      div.style.height = num + 'px';
+
+      // 随机颜色
+      let color = fun2();
+      div.style.backgroundColor = color;
+
+      // 随机位置
+      let windowHeight = document.documentElement.clientHeight;
+      let windowWidth = document.documentElement.clientWidth;
+      div.style.top = fun1(0, windowHeight - num) + 'px';
+      div.style.left = fun1(0, windowWidth - num) + 'px';
+
+      // 随机速度
+      let speedY = fun1(-20,20);
+      let speedX = fun1(-20,20);
+      
+      setInterval(function(){
+        // 垂直速度
+        let topDis = div.style.top;
+        topDis = parseInt(topDis);
+
+        topDis += speedY;
+        if(topDis <= 0 || topDis >= windowHeight - num){
+          speedY *= -1;
+        }
+
+        div.style.top = topDis + 'px';
+
+        // 水平速度
+        let leftDis = div.style.left;
+        leftDis = parseInt(leftDis);
+
+        leftDis += speedX;
+        if(topDis <= 0 || topDis >= windowWidth - num){
+          speedX *= -1;
+        }
+
+        div.style.left = leftDis + 'px';
+      }, 50);
+    };
+
+    // 生成一个
+    // fun();
+
+    // 生成n个
+    for(let i = 0; i < 100; i++){
+      fun(i);
+    }
+  </script>
+</body>
+</html>
