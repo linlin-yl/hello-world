@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      text-align: center;
+    }
+    select{
+      width: 80px;
+      height: 30px;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <select name="" id="province">
+    <option value="">请选择</option>
+  </select>
+  <span>省</span>
+  <select name="" id="city">
+    <option value="">请选择</option>
+  </select>
+  <span>市</span>
+  <select name="" id="county">
+    <option value="">请选择</option>
+  </select>
+  <span>区</span>
+
+  <script>
+    let provinceData = ['四川', '山西', '山东', '河南'];
+    let cityData = [
+      ['成都', '自贡', '攀枝花', '泸州'],
+      ['太原','临汾',],
+      ['济南','青岛'],
+      ['郑州']
+    ];
+    let countyData = [
+      [
+        ['锦江', '青羊', '金牛', '武侯'],
+        ['富顺', '大安'],
+        ['东', '西'],
+        ['纳溪', '龙马潭']
+      ],
+      [
+        ['小店','迎泽'],
+        ['尧都']
+      ],
+      [
+        ['历下','市中','槐荫','天桥'],
+        ['市南','李沧']
+      ],
+      [
+        ['中原','二七','金水']
+      ],
+    ];
+
+    let province = document.querySelector('#province');
+    let city = document.querySelector('#city');
+    let county = document.querySelector('#county');
+
+
+    let fun = function(a,b){
+      for(let i = 0; i < a.length; i++){
+        let option = document.createElement('option');
+        b.appendChild(option);
+        option.innerHTML = a[i];
+        option.value = i;
+      };
+    };
+
+    // 添加省
+    fun(provinceData, province);
+
+    // 添加市
+    let provinceNum
+    province.onchange = () => {
+      city.length = 1;
+      county.length = 1;
+      provinceNum = province.value;
+      fun(cityData[provinceNum], city);
+    };
+
+    // 添加区
+    city.onchange = () => {
+      county.length = 1;
+      let cityNum = city.value;
+      fun(countyData[provinceNum][cityNum], county);
+    };
+
+
+
+  </script>
+</body>
+</html>
