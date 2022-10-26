@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  #box{
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    background-color: pink;
+    text-align: center;
+    top: 100px;
+    left: 100px;
+  }
+  h3{
+    margin: 30px 0;
+  }
+  button{
+    width: 40px;
+    height: 40px;
+    background-color: orange;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <h3>嫁给我吧!!!</h3>
+    <button type="text">YES</button>
+    <button type="text">NO</button>
+  </div>
+
+  <script>
+    let btns = document.querySelectorAll('button');
+    let box = document.querySelector('#box');
+    
+    let height = document.documentElement.clientHeight - box.clientHeight;
+    let width = document.documentElement.clientWidth - box.clientWidth;
+    
+    
+
+    btns[0].onclick = () => {
+      alert('爱你哟！');
+    };
+
+    btns[1].onmouseover = () => {
+      let numWidth = ~~(Math.random()*(width-0+1)+0);
+      let numHeight = ~~(Math.random()*(height-0+1)+0);
+      console.log(numWidth);
+      console.log(numHeight);
+      box.style.top = numHeight + 'px';
+      box.style.left = numWidth + 'px';
+
+    };
+  </script>
+</body>
+</html>
