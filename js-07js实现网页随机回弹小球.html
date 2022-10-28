@@ -22,6 +22,7 @@
 <body>
   
   <script>
+//     面向过程写法
     // 生成随机数
     let fun1 = (min,max) => {
       return ~~(Math.random()*(max-min+1)+min);
@@ -95,5 +96,85 @@
       fun(i);
     }
   </script>
+  
+  
+  
+  
+//     面向对象写法
+<!--   <script>
+    // 以面向对象的思路实现：通过构造函数打印一个小球，再实现小球运动，最后打印多个
+
+    // 随机数
+    function random(min, max) {
+      return ~~(Math.random()*(max-min+1)+min);
+    };
+
+    // 随机颜色
+    function color() {
+      let red = random(0,255);
+      let green = random(0,255);
+      let blue = random(0,255);
+
+      return `rgb(${red},${green},${blue})`;
+    }
+
+    function Ball() {
+      this.div = document.createElement('div');
+
+      let num = random(30, 80);
+
+      // 随机大小
+      this.width = num;
+      this.height = num;
+
+      // 随机颜色
+      this.backgroundColor = color();
+
+      // 随机位置
+      let windowHeight = document.documentElement.clientHeight
+      
+      this.top =random(0,windowHeight - num); 
+
+      let windowWidth = document.documentElement.clientWidth;
+      this.left = random(0, windowWidth - num);
+
+      // 随机速度
+      this.speedX = random(-20,20);
+      this.speedY = random(-20,20);
+
+      // 渲染小球
+      this.render = function(){
+        document.body.appendChild(this.div);
+        this.div.style.cssText = `width:${this.width}px;height:${this.height}px;background-color:${this.backgroundColor};top:${this.top}px;left:${this.left}px;`
+      };
+
+      let that = this;
+      this.move = function(){
+        setInterval(() => {
+          that.top += this.speedY;
+          if(that.top<=0 || that.top>=windowHeight-num){
+            that.speedY *= -1;
+          }
+          console.log(that.top);
+
+          that.div.style.top = that.top + 'px';
+      
+
+        that.left += this.speedX;
+          if(that.left<0 || that.left>windowWidth-num){
+            that.speedX *= -1;
+          }
+          that.div.style.left = that.left + 'px';
+        }, 50);
+      };
+    }
+
+    for(i = 0; i < 100; i++){
+      let ball =new Ball();
+      ball.render();
+      ball.move();
+    }
+    
+  </script> -->
 </body>
 </html>
