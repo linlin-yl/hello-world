@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    <input type="text" placeholder="用户名" id="user">
+  </p>
+  <p>
+      <input type="text" placeholder="密码" id="pwd">
+  </p>
+  <p>
+      <input type="button" id="btn" value="登录">
+  </p>
+  
+  <script>
+    /*思路：
+      参考jquery封装的Ajax：
+        $ajax({
+          type:'',
+          url:'',
+          data:{},
+          success:(res){
+
+          }
+        })
+      
+      封装原生ajax：
+        myAjax({
+          type:'',
+          url:'',
+          data:{},
+          success:(res){
+
+          }
+        })
+      原生ajax：
+        1.创建xhr对象
+          let xhr = new XMLHttpRequest();
+        2.准备发送
+          xhr.open('method','url',true);
+        3.发送http请求
+          xhr.send
+        4.监听
+          xhr.onreadystatechange=function(){
+            5.状态完成
+            if(xhr.readyState===4 && xhr.status===200){
+              xhr.response//获取后台返回的数据
+            }
+          }
+    */
+
+    /*
+    思路：
+    1）点击按钮，发送http请求
+    2）判断get请求还是post请求
+    3）get在open中传参，post在send中传参
+    */
+
+    let btn = document.getElementById('btn');
+
+    // 绑定点击事件
+    btn.onclick = function(){
+      let user = document.getElementById('user').value;
+      let pwd = document.getElementById('pwd').value;
+      myAjax({
+        type:'get',
+        url:'./04.FZ_Ajax.php',
+        data:{
+          user:user,
+          pwd:pwd
+        },
+        success(res){
+          console.log(res)
+        }
+      });
+    }
+
+    // 封装网络请求
+    function myAjax(obj){
+      let xhr =new XMLHttpRequest();
+
+      let str = '';
+      for (const key in obj.data) {
+        str += `${key}=${obj.data[key]}&`;
+      }
+
+      let params = str.slice(0,-1);
+
+      if(obj.type === 'get'){
+        xhr.open('get',obj.url+"?"+params, true);
+        xhr.send();
+      }else if(obj.type === 'post'){
+        xhr.open('post',obj.url,true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        xhr.send(params);
+      }
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          obj.success(xhr.response);//调用成功的函数，传递成功响应的数据
+        }
+      }
+    }
+  </script>
+</body>
+</html>
